@@ -32,5 +32,16 @@ public class WalletController {
     public Wallet createWallet(@Validated @RequestBody WalletRequest request) throws Exception{
         return walletService.createWallet(request);
     }
+
+    @PutMapping("/{id}")
+    public void editWallet(@PathVariable int id, @Validated @RequestBody WalletRequest request) throws Exception{
+        walletService.editWallet(id,request);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteWallet(@PathVariable int id) throws Exception{
+        walletService.deleteWallet(id);
+        return "Wallet id: " + id + " deleted!";
+    }
 }
 

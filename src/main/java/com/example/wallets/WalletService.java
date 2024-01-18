@@ -54,4 +54,23 @@ public class WalletService {
     private void callNormalService(){
         throw new RuntimeException();
     }
+
+    public void editWallet(int id,WalletRequest request){
+        Optional<Wallet> wallet = wallets.stream().filter(w -> w.getId() == id).findFirst();
+        if (wallet.isPresent()){
+            Wallet w = wallet.get();
+            w.setName(request.walletName());
+        }else{
+            throw new NotFoundException("Wallet not found by id: " + id);
+        }
+    }
+
+    public void deleteWallet(int id){
+        Optional<Wallet> wallet = wallets.stream().filter(w -> w.getId() == id).findFirst();
+        if (wallet.isPresent()) {
+            wallets.removeIf(w -> w.getId() == id);
+        }else{
+            throw new NotFoundException("Wallet not found by id: " + id);
+        }
+    }
 }
